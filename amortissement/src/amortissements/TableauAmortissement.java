@@ -1,7 +1,5 @@
 package amortissements;
 
-import objets.Rationnel;
-
 /**
  * ReprÃ©sente le tableau d'amortissement d'un crÃ©dit.
  */
