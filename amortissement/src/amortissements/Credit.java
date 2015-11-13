@@ -109,21 +109,20 @@ public class Credit
 			double montantEmprunte, double annuiteMaximale,
 			double taux)
 	{
-		double duree = 0;
 		double res = 0;
 		double amortissement;
 		double interet = montantEmprunte * taux; 
 		if (typeCredit == 1)
 		{
 			amortissement = annuiteMaximale - interet;
-			duree = montantEmprunte/amortissement;
+			res = montantEmprunte/amortissement;
 			
 		}
 		else
 		{
 			;
 		}
-		Credit C = new Credit(typeCredit, montantEmprunte, annuiteMaximale, res,duree);
+		Credit C = new Credit(typeCredit, montantEmprunte, annuiteMaximale, taux,res);
 		return C;
 	}
 
@@ -135,8 +134,18 @@ public class Credit
 	public static Credit calculeMontantEmprunte(int typeCredit, 
 			double annuiteMaximale,	double taux, int duree)
 	{
-		
-		return null;
+		double res = 0; 
+		if (typeCredit == 1)
+		{
+			res = annuiteMaximale/(1/duree + taux);
+			
+		}
+		else
+		{
+			;
+		}
+		Credit C = new Credit(typeCredit, res, annuiteMaximale, taux, duree);
+		return C;
 	}
 
 	/**
@@ -144,7 +153,7 @@ public class Credit
 	 * l'annuitÃ© maximale.
 	 */
 	
-	public static Credit calculeAnuiteMaximale(int typeCredit, 
+	public static Credit calculeAnnuiteMaximale(int typeCredit, 
 			double montantEmprunte,	double taux, double duree)
 	{
 		double res = 0;
