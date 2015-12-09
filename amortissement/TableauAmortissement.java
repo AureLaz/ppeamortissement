@@ -16,11 +16,6 @@ public class TableauAmortissement
 	{
 		nbLignes = credit.duree();
 		Ligne[] tableauAmort = new Ligne[nbLignes];
-		tableauAmort[0] = Ligne.premiereLigne(credit);
-		for (int i = 1; i < tableauAmort.length; i++) 
-		{
-			;
-		}
 	}
 	
 	/**

@@ -142,7 +142,7 @@ public class Credit
 		double res = 0; 
 		if (typeCredit == 1)
 		{
-			res = annuiteMaximale/(1/(duree + taux));
+			res = annuiteMaximale/(1/duree + taux);
 			
 		}
 		else
