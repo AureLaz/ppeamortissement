@@ -91,21 +91,24 @@ public class Ligne
 	
 	public static Ligne premiereLigne(Credit credit)
 	{
+		double amortissement;
+		double interet = credit.montantEmprunte() * credit.taux();
 		if (credit.typeCredit() == Credit.AMORTISSEMENT_CONSTANTS)
 		{
-			double interet = credit.montantEmprunte() * credit.taux();
-			double amortissement = credit.montantEmprunte()/credit.duree();
-			return new Ligne (1,credit.montantEmprunte(), 
-					interet,
-					amortissement,
-					amortissement + interet,
-					credit.montantEmprunte() - amortissement);
+			amortissement = credit.montantEmprunte()/credit.duree();
+			
 					
 		}
 		else
 		{
-			return null;
+			amortissement = credit.annuiteMaximale()-(credit.montantEmprunte()/credit.taux());
 		}
+		return new Ligne (1,
+				credit.montantEmprunte(), 
+				interet,
+				amortissement,
+				credit.annuiteMaximale(),
+				credit.montantEmprunte() - amortissement);
 	}
 
 	/**
@@ -116,6 +119,9 @@ public class Ligne
 	
 	public Ligne ligneSuivante(Credit credit)
 	{	
+		double capitalInitial = this.getCapitalFinal();
+		double interet = credit.taux()*capitalInitial;
+		double amortissement;
 		if(this.getAnnee()== credit.duree()) 
 		{
 			return null;
@@ -125,18 +131,24 @@ public class Ligne
 				
 			if (credit.typeCredit() == Credit.AMORTISSEMENT_CONSTANTS)
 			{
-				double interet = credit.montantEmprunte() * credit.taux();
-				double amortissement = credit.montantEmprunte()/credit.duree();
+				
+				amortissement = credit.montantEmprunte()/credit.duree();
 				return new Ligne (this.getAnnee()+1,credit.montantEmprunte(), 
 						interet,
 						amortissement,
 						amortissement + interet,
-						credit.montantEmprunte() - amortissement);
+						this.capitalFinal-amortissement);
 						
 			}
 			else
 			{
-				return null;
+				amortissement = credit.annuiteMaximale()-(capitalInitial/100*credit.taux());
+				double annuite = this.annuite;
+				return new Ligne (this.getAnnee()+1,credit.montantEmprunte(), 
+						interet,
+						amortissement,
+						amortissement + interet,
+						this.capitalFinal-amortissement);
 			}
 		}
 		
